@@ -1,8 +1,6 @@
 import sqlite3
 from argon2 import PasswordHasher
 
-
-
 class PySQLiteConnection:
     ph = PasswordHasher()
 
@@ -45,7 +43,3 @@ class PySQLiteConnection:
                 self.ph.verify(row[1], data[1])
                 return True
         return False
-
-n = PySQLiteConnection("C:\\Web_App_Flask_Apache\\Model\\Database\\database.sqlite")
-n.writeData(["user2", "user", "user2@example.com"])
-print(n.checkPasswort(("admin", "admin")))

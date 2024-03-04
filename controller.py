@@ -2,17 +2,19 @@ import os
 from Model.PySQLite import PySQLiteConnection
 from flask import Flask, render_template, request, session
 
-template_dir = database_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+template_dir = database_dir = static_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 for p in ['Web_App_Flask_Apache', 'View', 'Templates']:
     template_dir = os.path.join(template_dir, p)
 for d in ['Web_App_Flask_Apache', 'Model', 'Database', 'database.sqlite']:
     database_dir = os.path.join(database_dir, d)
+for s in ['Web_App_Flask_Apache', 'View', 'Static']:
+    static_dir = os.path.join(static_dir, s)
 
 db = PySQLiteConnection.PySQLiteConnection(database_dir)
 
-app = Flask(__name__, template_folder=template_dir)
+app = Flask(__name__, static_url_path='', static_folder=static_dir, template_folder=template_dir)
 app.secret_key = '1986420918283627'
-
+print(static_dir)
 
 
 @app.route("/", methods=['GET', 'POST'])

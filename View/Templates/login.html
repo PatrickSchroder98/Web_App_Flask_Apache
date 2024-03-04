@@ -1,17 +1,25 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-    </head>
-    <body>
-        <form method="post" action="{{ url_for('mainpage') }}">
-        Login: <br />
-        <input type="text" name="username" /><br />
-        Password: <br />
-        <input type="text" name="password" /><br />
-        <br />
-        <input type="submit" value="Log In">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey</title>
+    <link href="styles.css" type="text/css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div>
+      <main>
+        <h1 id="title">Log In</h1>
+        <hr>
+        <form id="survey-form" method="post" action="{{ url_for('mainpage') }}">
+          <fieldset>
+            <label for="username" id="name-label">Enter Your Username: <input id="username" name="username" type="text" placeholder="Enter Your Username" required /></label>
+            <label for="password" id="password-label">Enter Your Password: <input id="password" name="password" type="password" placeholder="Enter Your Password:" required /></label>
+          </fieldset>
+
+          <input id="submit" type="submit" value="Submit" />
         </form>
-    </body>
+      </main>
+    </div>
+  </body>
 </html>
