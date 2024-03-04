@@ -1,7 +1,10 @@
 import sqlite3
+from argon2 import PasswordHasher
+
 
 
 class PySQLiteConnection:
+    ph = PasswordHasher()
 
     def __init__(self, path):
         self.path = path
@@ -24,9 +27,9 @@ class PySQLiteConnection:
             for row in check:
                 if data[0] == row[0] or data[2] == row[1]:
                     return False
-
+            _hash = self.ph.hash(data[1])
             cur.execute("""INSERT INTO Logins(username, password, email) 
-                                VALUES ('{login}', '{pas}', '{mail}')""".format(login=data[0], pas=data[1], mail=data[2]))
+                                VALUES ('{login}', '{pas}', '{mail}')""".format(login=data[0], pas=_hash, mail=data[2]))
             conn.commit()
             conn.close()
         except Exception as e:
@@ -38,7 +41,8 @@ class PySQLiteConnection:
     def checkPasswort(self, data):
         db = self.readData("username", "password")
         for row in db:
-            if row == data:
+            if row[0] == data[0]:
+                self.ph.verify(row[1], data[1])
                 return True
         return False
 
